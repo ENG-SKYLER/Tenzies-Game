@@ -23,17 +23,17 @@ export default function App() {
     React.useEffect(()=>{
         if(isActive){
            timer = setInterval(()=>{
-                setSeconds(seconds + 1);
+                setSeconds((seconds) => seconds + 1);
             }, 1000)
             if(seconds === 59){
-                setMinutes(minutes + 1)
+                setMinutes((minutes) => minutes + 1)
                 setSeconds(0)
             }
         }
         return ()=>{
             clearInterval(timer)
         }
-    })
+    },[minutes , seconds])
     React.useEffect(() => {
         const allHeld = dice.every(die => die.isHeld)
         const firstValue = dice[0].value
@@ -41,7 +41,9 @@ export default function App() {
         if (allHeld && allSameValue) {
             setTenzies(true)
         }
-    }, [isActive])
+    }, [dice])
+
+
 
 
 
